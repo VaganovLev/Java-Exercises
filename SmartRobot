@@ -1,0 +1,111 @@
+
+public class Main {
+	 
+	enum Direction {
+	    UP,
+	    DOWN,
+	    LEFT,
+	    RIGHT
+	}
+	 
+	public static class Robot {
+	    Direction dir;
+	    int x, y;
+	    static int numberOfRobots = 0;
+	 
+	 
+	    public Robot (int x, int y, Direction dir) {
+	        this.x = x;
+	        this.y = y;
+	        this.dir = dir;
+	        numberOfRobots++;
+	    }
+	 
+	    public Direction getDirection() {return dir;}
+	 
+	    public int getX() {return x;}
+	 
+	    public int getY() {return y;}
+	 
+	    public void turnLeft() {
+	        if      (dir == Direction.UP)    {dir = Direction.LEFT;}
+	        else if (dir == Direction.DOWN)  {dir = Direction.RIGHT;}
+	        else if (dir == Direction.LEFT)  {dir = Direction.DOWN;}
+	        else if (dir == Direction.RIGHT) {dir = Direction.UP;}
+	    }
+	 
+	    public void turnRight() {
+	        if      (dir == Direction.UP)    {dir = Direction.RIGHT;}
+	        else if (dir == Direction.DOWN)  {dir = Direction.LEFT;}
+	        else if (dir == Direction.LEFT)  {dir = Direction.UP;}
+	        else if (dir == Direction.RIGHT) {dir = Direction.DOWN;}
+	    }
+	 
+	    public void stepForward() {
+	        if (dir == Direction.UP)    {y++;}
+	        if (dir == Direction.DOWN)  {y--;}
+	        if (dir == Direction.LEFT)  {x--;}
+	        if (dir == Direction.RIGHT) {x++;}
+	    }
+	}
+	 
+	 
+	 
+	public static class SmartRobot extends Robot{
+	    SmartRobot(int x,int y,Direction xd){
+	        super(x,y,xd);
+	    }
+	    public String toString(){
+	        return x+" "+y+" "+dir;
+	    }
+	    public void moveRobot(int toX,int toY){
+	        if (getX()!=toX) System.out.println("Начинаем с координаты X");
+	       
+	        if (getX()<toX){
+	            while (dir!=Direction.RIGHT){
+	                turnRight();
+	                System.out.println("Поворот вправо, смотрит = "+getDirection());
+	            }
+	        }
+	 
+	        if (getX()>toX){
+	            while (dir!=Direction.LEFT){
+	                turnRight();
+	                System.out.println("Поворот вправо, смотрит = "+getDirection());
+	            }
+	        }
+	        while (getX()!=toX){
+	            stepForward();
+	            System.out.println("Шаг вперед "+getDirection()+" Новое значение координаты x = "+getX());
+	        }
+	 
+	        if (getY()!=toY) System.out.println("Пойдем к координате Y");
+	        if (getY()>toY){
+	            while (dir!=Direction.DOWN){
+	                turnRight();
+	                System.out.println("Поворот вправо, смотрит = "+getDirection());
+	            }
+	        }
+	 
+	        if (getY()<toY){
+	            while (dir!=Direction.UP){
+	                turnRight();
+	                System.out.println("Поворот вправо, смотрит = "+getDirection());
+	            }
+	        }
+	        while (getY()!=toY){
+	            stepForward();
+	            System.out.println("Шаг вперед "+getDirection()+" Новое значение координаты y = "+getY());
+	        }
+	 
+	    }
+	}
+	 
+	public  static void main(String [] args){
+		SmartRobot r1= new SmartRobot(0,0,Direction.DOWN);
+		
+	        r1.moveRobot(3,4);
+	        
+	        System.out.println("Вы прибыли к месту назначения");
+	}
+}
