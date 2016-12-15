@@ -1,0 +1,37 @@
+Решение задачи "Выравнивание погоды"
+import java.io.*; // Класс работы с загружаемыми документами
+public class Pogoda {
+    public static void main(String args[]) {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("POGODA.txt")); //Загружем файл с данными, где первое число это количество необходимы вычислений, а дальше указана последовательность температур
+            int n = Integer.parseInt(reader.readLine()); // Разбор строки как десятичных целых чисел 2 -> 2.0
+            String valueStrings[] = reader.readLine().split(" "); // Разбиваем строку на фрагменты
+            double values[] = new double[n];
+            double smoothenedValues[] = new double[n];
+            for (int i = 0; i < n; i++)
+                values[i] = Double.parseDouble(valueStrings[i]); // Double.parseDouble - преобразовывает строку в число
+                                        // Затем передает данные i в след. цикл
+            for (int i = 0; i < n; i ++)                                        // Цикл работает только до i<n, а i - кол-во символов строке, n - сами цифры в строке
+                                        // Далее запускаем алгоритм условие для дальнейшего вычисления чисел
+            {
+                if (i != 0 && i != n - 1)                                                  // Если i не равен 0 и i не равен n - 1
+                    smoothenedValues[i] = (values[i - 1] + values[i] + values[i + 1]) / 3; //Тут расчет суммы и деления
+                else smoothenedValues[i] = values[i];                                      // После расчета всех необходимых чисел происходит их вывод
+                System.out.print(smoothenedValues[i] + " ");
+            }
+        }
+           //Далее поиск ошибок алгоритма
+        catch (FileNotFoundException exception) {
+            System.out.println("Файл не найден");
+        }
+        catch (IOException exception) {
+            System.out.println("Ошибка загрузки класса IO");
+        }
+        catch (NullPointerException exception) {
+            System.out.println("Неправильная структура файла");
+        }
+        catch (NumberFormatException exception) {
+            System.out.println("Неправильный формат чисел");
+        }
+    }
+}
