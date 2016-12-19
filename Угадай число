@@ -1,0 +1,46 @@
+package com.company;
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        char answer;
+        System.out.println("Введите начало границы:");
+        int min = sc.nextInt();
+        System.out.println("Введите конец границы:");
+        int max = sc.nextInt();
+        int avg = (min + max) / 2;
+        while (true){
+            System.out.println("Ваше число >="  + avg + "? (y/n)");
+            answer = sc.next().charAt(0);
+            if (answer == 'y') {
+                min = avg;
+                avg = (max + min) / 2;
+            }
+            else {
+                max = avg;
+                avg = (max + min) / 2;
+            }
+            if (max == min) {
+                System.out.println("Ваше число:" + min);
+                break;
+            }
+            if ((max-min) == 1) {
+                System.out.println("Ваше число:" + min + "?");
+                answer = sc.next().charAt(0);
+                if (answer == 'y') {
+                    System.out.println("Game over");
+                    break;
+                } else {
+                    System.out.println("Ваше число:" + max);
+                    break;
+                }
+            }
+        }
+        }
+        // считать границы диапазона min и max
+        // рассчитать середину диапазона
+        // в цикле спрашивать у пользователя
+        // больше ли его число, чем середина
+        // затем в зависимости от ответа пользователя
+        // изменить min или max
+    }
